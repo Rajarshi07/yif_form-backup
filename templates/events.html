@@ -1,0 +1,29 @@
+{% extends 'header_file.html' %}
+{% load static %}
+<html>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <head>
+        {% block extra_links %}
+        <link href = "{% static 'events.css' %}" rel="stylesheet" type="text/css">
+        {% endblock %}
+    </head>
+    <body>
+        {% block rest_container%}
+        <h3 id = "state_heading">EVENTS</h3>
+        <div id = "state_section">
+            {% for event in all_events %}
+            <div class = "states" id = "state_1">
+                <div class = "state_card">
+                    <img src = "{{ event.picture.url }}">
+                </div>
+                <p>{{ event.name }}</p>
+                <a href = '{{ request.scheme }}://{{ request.get_host }}/events/{{ event.name }}'><button>EVENT DETAILS</button></a>
+                <a href = '{{ request.scheme }}://{{ request.get_host }}/events/{{ event.name }}/register'><button>REGISTER NOW</NOW></button></a>
+            </div>
+            {% endfor %}
+
+            </div>
+        </div>
+        {% endblock %}
+    </body>
+</html>

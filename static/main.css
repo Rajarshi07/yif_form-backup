@@ -1,0 +1,79 @@
+
+@font-face {
+  font-family: myFourthFont;
+  src: url("medium.otf");
+}
+body
+{
+    font-family: myFourthFont !important;
+}
+#state_heading
+{
+    text-align: center;
+    font-size: 2rem;
+}
+#state_section
+{
+    margin: 0 auto;
+    width: 70%;
+    text-align: center;
+}
+.states 
+{
+    width: 11rem;
+    display: inline-block;
+    margin: 1rem 1.6rem 2rem 1.6rem;
+    text-align: center;
+}
+.state_card
+{
+    height: 11rem;
+    width: 100%;
+    border-radius: 1.5rem;
+    display: inline-block;
+    position: relative;
+}
+.state_card:hover
+{
+    cursor: pointer;
+}
+.state_card img
+{
+    width: 100%;
+    margin: auto 0;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+    border-radius: 1.5rem;
+}
+.states p
+{
+    color: black;
+    font-size: 1.5rem;
+}
+@media screen and (max-width: 800px)
+{
+    html
+    {
+        font-size: 75%;
+    }
+    header p
+    {
+        font-size: 1.5rem;
+        margin-top: 1.5rem;
+    }
+    #state_section
+    {
+        width: 100%;
+    }
+    .states
+    {
+        width: 12rem;   
+    }
+    .state_card
+    {
+        height: 12rem;
+    }
+}

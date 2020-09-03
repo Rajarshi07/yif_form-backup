@@ -1,0 +1,108 @@
+body
+{
+    padding: 0;
+    margin: 0;
+}
+@font-face {
+  font-family: myFirstFont;
+  src: url("Britannic Bold Regular.ttf");
+}
+@font-face {
+  font-family: mySecondFont;
+  src: url("SF-Pro-Display-Black.otf");
+}
+@font-face {
+  font-family: myThirdFont;
+  src: url("SF-Pro-Display-Thin.otf");
+}
+header
+{
+    width: 100%;
+    text-align: center;
+}
+header img
+{
+    height: 5rem;
+    float: left;
+}
+header p
+{
+    display: inline-block;
+    text-align: center;
+    font-family: myFirstFont;
+    margin-top: 1rem;
+    font-size: 3rem;    
+    color: gray;
+}
+#right_logo
+{
+    float: right;
+}
+#rest_container
+{
+    width: 40%;
+    margin: 0 auto;
+    text-align: center; 
+    font-family: mySecondFont;
+}
+form
+{
+    width: 100%;
+    text-align: left;
+    margin-top: 2rem;
+}
+form label
+{
+    font-family: myThirdFont;
+}
+form label, p
+{
+    font-size: 1.5rem;
+}
+form input
+{
+    width: 100%;
+    height: 2rem;
+    outline: none;
+    border:none;
+    border-bottom: solid 1px #FAD12B;
+}
+#submit_div
+{
+    width: 100%;
+    text-align: center;
+}
+#submit
+{
+    width: 70%;
+    height: 3rem;
+    background-image: linear-gradient(to right,#052C6E, #01B5EB);
+    border-radius: 2rem;
+    font-size: 1.5rem;
+    color: white;
+    border: none;
+}
+#submit:hover
+{
+    cursor: pointer;
+}
+@media screen and (max-width: 800px)
+{
+    html
+    {
+        font-size: 75%;
+    }
+    header p
+    {
+        font-size: 1.5rem;
+    }
+    #rest_container
+    {
+        width: 70%;
+    }
+    #submit
+    {
+        width: 80%;
+    }
+}
+    

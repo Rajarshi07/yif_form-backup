@@ -1,0 +1,53 @@
+{% extends 'header_file.html' %}
+{% load static %}
+<html>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <head>
+        {% block extra_links %}
+        <link href = "{% static 'main.css' %}" rel="stylesheet" type="text/css">
+        {% endblock %}
+    </head>
+    <body>
+        {% block rest_container %}
+        <h1 id = "state_heading">SELECT YOUR STATE</h1>
+        <div id = "state_section">
+            <div class = "states" id = "state_1">
+                <a href = "West_Bengal/events/"><div style = "background-color: #FFAA00;" class = "state_card">
+                    <img src = "{% static 'bengal_logo.png' %}">
+                </div></a>
+                <p>West Bengal</p>
+            </div>
+            <div class = "states" id = "state_2">
+                <a href = "Delhi/events/"><div style = "background-color: #F5526B" class = "state_card">
+                    <img src = "{% static 'Delhi.png' %}">
+                </div></a>
+                <p> Delhi </p>
+            </div>
+            <div class = "states" id = "state_3">
+                <a href = "Maharashtra/events/"><div style = "background-color: #93C18C" class = "state_card">
+                    <img src = "{% static 'maharashtra.png' %}">
+                </div></a>
+                <p> Maharashtra </p>
+            </div>
+            <div class = "states" id = "state_4">
+                <a href = "Odisha/events/"><div style = "background-color: #8c2e50" class = "state_card">
+                    <img src = "{% static 'odisha.jpg' %}">
+                </div></a>
+                <p> Odisha </p>
+            </div>
+            <div class = "states" id = "state_5">
+                <a href = "Tamil_Nadu/events/"><div style = "background-color: #009F9D" class = "state_card">
+                    <img style = "border-radius: 0;" src = "{% static 'tamil_nadu.jpg' %}">
+                </div></a>
+                <p> Tamil Nadu </p>
+            </div>
+            <div class = "states" id = "state_6">
+                <a href = "other_states/"><div style = "background-color: #34da85" class = "state_card">
+                    <img src = "{% static 'india.png' %}">
+                </div></a>
+                <p> Other </p>
+            </div>
+        </div>
+        {% endblock %}
+    </body>
+</html>

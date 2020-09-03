@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href = "{% static 'header_file.css' %}" rel="stylesheet" type="text/css">
+    {% block extra_links %}
+    {% endblock %}
+</head>
+<body>
+    <header>
+            <img src = "{% static 'BENGAL.png' %}">
+            <p> YOUTH INDIA FOUNDATION </p>
+            <img src = "{% static 'BENGAL.png' %}" id = "right_logo">
+    </header>
+    {% block rest_container %}
+    {% endblock %}
+</body>
+</html>

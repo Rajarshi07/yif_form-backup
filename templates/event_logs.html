@@ -1,0 +1,106 @@
+{% extends 'header_file.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+    {% block extra_links %}
+    <style>
+        #rest_container
+        {
+            width: 40%;
+            margin: 1rem auto 0 auto;
+            text-align: center;
+        }
+        p
+        {
+            display: inline;
+            font-size: 2rem;
+        }
+        select
+        {
+            display: inline;
+            width: 13rem;
+            height: 2rem;
+            margin-left: 2rem;
+            transform: translateY(-10%);
+            border-radius: 2rem;
+            padding: 0 1rem;
+        }
+        #button_div
+        {
+            width: 100%;
+            text-align: center;
+        }
+        #event_name
+        {
+            font-family: mySecondFont;
+        }
+        button
+        {
+            display: inline-block;
+            margin-top: 3rem;
+            background: white;
+            border-radius: 2rem;
+            width: 15rem;
+            height: 2rem;
+        }
+        table {
+          margin-top: 2rem;
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+        }
+
+        td, th {
+          border: 1px solid #dddddd;
+          text-align: left;
+          padding: 8px;
+        }
+
+        tr:nth-child(even) {
+          background-color: #dddddd;
+        }
+        @media screen and (max-width: 800px)
+        {
+            html
+            {
+                font-size: 75%;
+            }
+            #rest_container
+            {
+                width: 100%;
+            }
+        }
+    </style>
+    {% endblock %}
+</head>
+<body>
+{% block rest_container %}
+<div id = "rest_container">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <p id = "event_name">HELLO ADMIN</p>
+    <table>
+        <tr>
+            <th>Event</th>
+            <th>Revenue</th>
+            <th>Participants</th>
+        </tr>
+        {% for i, j in details.items %}
+        <tr>
+            <th>{{ i }}</th>
+            <th>{{ j.0 }}</th>
+            <th>{{ j.1 }}</th>
+        </tr>
+        {% endfor %}
+        <tr>
+            <th>Total</th>
+            <th>{{ total_revenue }}</th>
+            <th>{{ total_participants }}</th>
+        </tr>
+    </table>
+</div>
+{% endblock %}
+</body>
+
+</html>

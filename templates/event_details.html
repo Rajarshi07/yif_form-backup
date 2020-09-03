@@ -1,0 +1,28 @@
+{% extends 'header_file.html' %}
+{% load static %}
+<html>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+        {% block extra_links %}
+        <link href = "{% static 'event_details.css' %}" rel = "stylesheet" type= "text/css">
+        {% endblock %}
+    </head>
+    <body>
+        {% block rest_container%}
+        <div id = "rest_container">
+            <div id = "intro">
+                <img src = "{{ event.picture.url }}">
+                <div id = "main_details">
+                    <p id = "name">{{ event.name }}</p>
+                    <p id = "summary">{{ event.summary }}</p>
+                </div>
+            </div>
+            <div id = "rules">
+                <h2> Rules and Regulations</h2>
+                <p> {{ event.rules|linebreaks  }}</p>
+            </div>
+            <h3>Cost - Rs {{ event.cost }}</h3>
+        </div>
+        {% endblock %}
+    </body>
+</html>

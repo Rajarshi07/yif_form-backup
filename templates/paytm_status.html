@@ -1,0 +1,85 @@
+{% extends 'header_file.html' %}
+{% load static %}
+{% block extra_links %}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    #rest_container
+    {
+        font-size: 1.5rem;
+        max-width: 800px;
+        margin: 0 auto;
+        font-family: myFourthFont;
+    }
+    #success_div
+    {
+        text-align: center;
+    }
+    #success_img
+    {
+        display: inline-block;
+        width: 3rem;
+        height: 3rem;
+    }
+    #success
+    {
+        display: inline-block;
+        transform: translateY(-50%);
+    }
+    #another
+    {
+        text-align:center;
+    }
+    a:hover
+    {
+        cursor: pointer;
+    }
+    button
+    {
+        font-family: myFourthFont !important;
+        background-color: #1B283F;
+        box-shadow: 0 4px 15px;
+        width: 20rem%;
+        padding:10px;
+        margin: 5px 0;
+        color: white;
+        font-family: mySecondFont;
+        border-radius: 50px;
+        outline: none;
+        border: none;
+    }
+    @media screen and (max-width: 800px)
+    {
+        html
+        {
+            font-size: 75%;
+        }
+        #rest_container
+        {
+            max-width: 80%;
+            font-size: 1.5rem;
+        }
+        #success
+        {
+            transform: translateY(-55%);
+        }
+    }
+</style>
+{% endblock %}
+{% block rest_container %}
+<div id = "rest_container">
+{% if result %}
+    <div id = "success_div">
+    <img id = "success_img"src = "{% static 'payment-success.png' %}">
+    <p id = "success">Payment Successful</p>
+    </div>
+    <p> Dear {{details.name}}, <br>Your registration for {{ details.event }} was successful </p>
+    <p> Your participant id is {{details.participant_id}}</p>
+    <p> We have sent a confirmation mail to {{ details.email }}. <br> Kindly check it out </p>
+    <p> Glad to have you on board with us <br><br> Regards, <br> Youth India Foundation </p>
+    <div id = "another"><a href = "{{ request.scheme }}://{{ request.get_host }}/{{state}}/events"><button>Register For Another Event</button></a></div>
+    {% else %}
+    <p> Sorry your registrations was unsuccessful.</br> Please try again <br> For any queries, contact us on <br> 8017586761 </p>
+    <div><a href = "{{ request.scheme }}://{{ request.get_host }}/{{state}}/events"><button>Register Again</button></a></div>
+{% endif %}
+</div>
+{% endblock %}

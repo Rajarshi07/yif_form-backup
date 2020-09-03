@@ -1,0 +1,60 @@
+{% extends 'header_file.html'%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    {% block extra_links %}
+    <style>
+        #rest_container
+        {
+            text-align: center;
+        }
+        #state_select
+        {
+            height: 2.5rem;
+            width: 15rem;
+            box-shadow: 0px 1px 15px rgba(0,0,0,0.2);
+        }
+        #proceed
+        {
+            background: black;
+            color: white;
+            border: none;
+            height: 2rem;
+            width: 7rem;
+            box-shadow: 0px 1px 15px rgba(0,0,0,0.2);
+        }
+        #proceed:hover
+        {
+            cursor: pointer;
+        }
+        #proceed:active
+        {
+            box-shadow: none;
+        }
+        @media screen and (max-width: 800px)
+    </style>
+    {% endblock %}
+</head>
+<body>
+    {% block rest_container%}
+    <div id = "rest_container">
+        <h1>SELECT YOUR STATE</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <label for = "state_select" type = hiddem></label>
+        <select name = "state_select" id = "state_select">
+            {% for state in states %}
+            <option>
+                {{ state.state_name }}
+            </option>
+            {% endfor%}
+        </select><br><br>
+        <input id = "proceed" type = "submit" value = "PROCEED">
+        </form>
+    </div>
+    {% endblock %}
+</body>
+</html>
