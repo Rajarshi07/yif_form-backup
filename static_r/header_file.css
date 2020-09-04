@@ -1,0 +1,54 @@
+body
+{
+    padding: 0;
+    margin: 0;
+}
+@font-face {
+  font-family: myFirstFont;
+  src: url("Britannic Bold Regular.ttf");
+}
+@font-face {
+  font-family: mySecondFont;
+  src: url("SF-Pro-Display-Black.otf");
+}
+
+@font-face {
+        font-family: myFourthFont;
+        src: url("medium.otf");
+    }
+
+header
+{
+    width: 100%;
+    text-align: center;
+}
+header img
+{
+    height: 5rem;
+    float: left;
+}
+header p
+{
+    display: inline-block;
+    text-align: center;
+    font-family: myFirstFont;
+    margin-top: 1rem;
+    font-size: 3rem;
+    color: gray;
+}
+#right_logo
+{
+    float: right;
+}
+@media screen and (max-width: 800px)
+{
+    html
+    {
+        font-size: 75%;
+    }
+    header p
+    {
+        font-size: 1.5rem;
+        margin-top: 1.5rem;
+    }
+}

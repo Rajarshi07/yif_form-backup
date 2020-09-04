@@ -1,0 +1,93 @@
+
+@font-face {
+  font-family: myThirdFont;
+  src: url("SF-Pro-Display-Thin.otf");
+}
+body
+{
+    padding: 0;
+    margin: 0;
+    background: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)),url('bengal.png');
+    background-size: 30rem 30rem;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center center;
+}
+#rest_container
+{
+    width: 80%;
+    margin: 0 auto;
+    font-family: mySecondFont;
+}
+#intro
+{
+    width: 100%;
+}
+#intro img
+{
+    width: 14rem;
+    height: 14rem;
+    display: inline-block;
+    border-radius: 1.5rem;
+}
+#main_details
+{
+    display: inline-block;
+    position: absolute;
+    margin-left: 3rem;
+}
+#name
+{
+    margin: 0;
+    font-size: 3rem;
+}
+#summary
+{
+    font-size: 1.5rem;
+}
+#rules
+{
+    font-family: myThirdFont !important;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+@media screen and (max-width: 800px)
+{
+    html
+    {
+        font-size: 75%;
+    }
+    header p
+    {
+        font-size: 1.5rem;
+    }
+    #rest_container
+    {
+        width: 90%;
+        margin: 0 auto;
+    }
+    #intro
+    {
+        width: 100%;
+        height: 25rem;
+    }
+    #main_details
+    {
+        text-align: center;
+        margin: 0 auto;
+        width: 90%;
+    }
+    #intro img, #name, #summary
+    {
+        width: 100%;
+        display: block;
+        margin: 0 auto;
+    }
+    #intro img
+    {
+        width: 16.5rem;
+        height: 16.5rem;
+        margin: 0 auto;
+        margin-bottom: 2rem;
+    }
+}
