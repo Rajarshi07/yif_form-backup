@@ -13,7 +13,7 @@ class form_registrations(forms.Form):
         fields = ('name', 'email','number', 'link', 'event', 'cost')
         widgets = {'event': forms.HiddenInput(), 'cost': forms.HiddenInput()}"""
     name = forms.CharField(label = "Name", max_length=50)
-    email = forms.EmailField(label="Email", max_length=50)
+    email = forms.EmailField(label="Email", max_length=50,  error_messages={'invalid': 'Incorrect Email Address'})
     number = forms.CharField(label="Number", min_length=10, validators=[MinLengthValidator(10)],
                              error_messages={'min_length': ('Ensure the number has at least 10 digits')})
     link = forms.CharField(label="Link", max_length=50)
