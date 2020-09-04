@@ -123,11 +123,11 @@ def paytm_gateway(request):
             message["To"] = receiver_email
             message['Subject'] = paid_registration.event
 
-            text = """
+            text = ""
                 Hey, {name}\n
                 You have been registered for {event_name}.\n
                 Your participant ID is: {participant_id}.\n
-            """
+            ""
 
             text = text.format(name = paid_registration.name,event_name = paid_registration.event, participant_id = paid_registration.participant_id)
 
