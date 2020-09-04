@@ -12,7 +12,7 @@ urlpatterns = [
     path('events/<str:event_name>', views.event_details, name = "event_details"),
     path('events/<str:event_name>/register', views.main_form, name = "main_form"),
     path('society_leads_login', views.society_leads_login, name = "admin_login"),
-    path('admin_login/', views.admin_login, name = "admin_login"),
+    path('special_admin_login/', views.admin_login, name = "admin_login"),
     path('export_user_xls/', views.export_users_xls, name = "download_xls"),
     path('paytm_gateway/', views.paytm_gateway, name = "paytm_gateway"),
 ]
