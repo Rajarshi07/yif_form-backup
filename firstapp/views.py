@@ -68,7 +68,9 @@ def main_form(request, event_name):
             param_dict['CHECKSUMHASH'] = checksum.generate_checksum(param_dict, 'Uga@WGMhXmW_ta%&')
             return render(request, 'paytm.html', {'param_dict' : param_dict} )
         else:
-            print(current_registration.errors)
+            current_event = events.objects.get(name=event_name)
+            return render(request, 'form.html',
+                          {'form': current_registration, 'event_name': current_event.name, 'event_cost': current_event.cost})
     current_event = events.objects.get(name = event_name)
     intital_dict = {'event' : current_event.name, 'cost' : current_event.cost}
     form = form_registrations(initial = intital_dict)
