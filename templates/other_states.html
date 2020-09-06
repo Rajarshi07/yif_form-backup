@@ -39,9 +39,11 @@
     {% endblock %}
 </head>
 <body>
+    {% block heading %}
+    CHOOSE YOUR STATE
+    {% endblock %}
     {% block rest_container%}
     <div id = "rest_container">
-        <h1>SELECT YOUR STATE</h1>
         <form method="POST">
             {% csrf_token %}
             <label for = "state_select" type = hiddem></label>

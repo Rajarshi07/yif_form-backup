@@ -50,9 +50,11 @@
 </head>
 <body>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block heading %}
+    ADMIN LOGIN
+    {% endblock %}
     {% block rest_container %}
     <div id = "rest_container">
-    <h1>Login</h1>
     <form method = "POST">
         {% csrf_token %}
         <label for="username" >Username</label><br>

@@ -48,8 +48,10 @@
         table {
           margin-top: 2rem;
           font-family: arial, sans-serif;
-          border-collapse: collapse;
           width: 100%;
+          border-radius: 100px;
+          color: #f3f8fb;
+          border: none;
         }
 
         td, th {
@@ -57,9 +59,12 @@
           text-align: left;
           padding: 8px;
         }
-
-        tr:nth-child(even) {
-          background-color: #dddddd;
+        tr:first-child{
+            background-color: black;
+        }
+        tr:nth-child(n+2){
+            background-color: white;
+            color: black;
         }
         @media screen and (max-width: 800px)
         {
@@ -76,11 +81,13 @@
     {% endblock %}
 </head>
 <body>
+{% block heading %}
+HELLO ADMIN
+{% endblock %}
 {% block rest_container %}
 <div id = "rest_container">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <p id = "event_name">HELLO ADMIN</p>
-    <table>
+    <table cellspacing="0" cellpadding="0">
         <tr>
             <th>Event</th>
             <th>Revenue</th>
