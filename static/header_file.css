@@ -53,6 +53,7 @@ header
 {
     width: 100%;
     text-align: center;
+    line-height: 5rem;
 }
 header img
 {
@@ -63,8 +64,8 @@ header p
 {
     display: inline-block;
     text-align: center;
+    margin: 0;
     font-family: myFirstFont;
-    margin-top: 1rem;
     font-size: 3rem;
     color: gray;
 }
@@ -81,6 +82,16 @@ header p
     header p
     {
         font-size: 1.5rem;
-        margin-top: 1.5rem;
+    }
+}
+@media screen and (max-width: 400px)
+{
+    header img
+    {
+        height: 3rem;
+    }
+    header
+    {
+        line-height: 3rem;
     }
 }

@@ -70,12 +70,6 @@ body
     {
         font-size: 75%;
     }
-
-    header p
-    {
-        font-size: 1.5rem;
-        margin-top: 1.5rem;
-    }
     #state_section
     {
         width: 100%;
@@ -87,5 +81,19 @@ body
     .state_card
     {
         height: 16rem;
+    }
+}
+@media screen and (max-width: 400px)
+{
+    .states
+    {
+        margin: 2rem 1.2rem;
+    }
+}
+@media screen and (max-width: 370px)
+{
+    .states
+    {
+        margin: 2rem .5rem;
     }
 }

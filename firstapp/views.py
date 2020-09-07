@@ -118,37 +118,12 @@ def paytm_gateway(request):
             text = "Hey, {name}\nYou have been registered for {event_name}.\nYour participant ID is: {participant_id}.\n"
             text = text.format(name=paid_registration.name, event_name=paid_registration.event,
                                participant_id=paid_registration.participant_id)
-            yag = yagmail.SMTP(user="prodigygamer143@gmail.com", password='8017586761')
+            yag = yagmail.SMTP(user=event_registered.email, password=event_registered.password)
             yag.send(
                 to=paid_registration.email,
-                subject=paid_registration.event + "Registration",
+                subject=paid_registration.event + " Registration",
                 contents=text
             )
-            """
-            port = 587  # For starttls
-            smtp_server = "smtp.gmail.com"
-            sender_email = event_registered.email
-            receiver_email = paid_registration.email
-            password = event_registered.password
-            message = MIMEMultipart("alternative")
-            message["Subject"] = paid_registration.event + " Registration"
-            message["From"] = sender_email
-            message["To"] = receiver_email
-            message['Subject'] = paid_registration.event
-
-            text = "Hey, {name}\nYou have been registered for {event_name}.\nYour participant ID is: {participant_id}.\n"
-
-            text = text.format(name = paid_registration.name,event_name = paid_registration.event, participant_id = paid_registration.participant_id)
-
-            message.attach(MIMEText(text, "plain"))
-
-            context = ssl.create_default_context()
-            with smtplib.SMTP(smtp_server, port) as server:
-                server.ehlo()  # Can be omitted
-                server.starttls(context=context)
-                server.ehlo()  # Can be omitted
-                server.login(sender_email, password)
-                server.sendmail(sender_email, receiver_email, message.as_string())"""
             state = events.objects.get(name = paid_registration.event).select_state
             return render(request, 'paytm_status.html', {'result' : True, 'details': paid_registration, 'state':state})
         else:

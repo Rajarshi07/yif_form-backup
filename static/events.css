@@ -74,3 +74,17 @@
         height: 13rem;
     }
 }
+@media screen and (max-width: 400px)
+{
+    .states
+    {
+        margin: 0 1.2rem 2rem 1.2rem;
+    }
+}
+@media screen and (max-width: 370px)
+{
+    .states
+    {
+        margin: 2rem .5rem;
+    }
+}
