@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import datetime, timedelta, timezone
 from django.contrib.auth.models import User
+import pytz
 
 # Create your models here.
 
@@ -38,7 +39,7 @@ class registration(models.Model):
     mi_id = models.CharField(max_length = 200, blank = True)
     transaction_id = models.CharField(max_length=200, blank = True)
     participant_id = models.CharField(max_length= 10, blank = True)
-    timestamp = models.DateTimeField(blank = True, default = datetime.now())
+    timestamp = models.DateTimeField(blank = True, default = datetime.now(pytz.timezone('Asia/Kolkata')))
     day_registered = models.DateField(blank = True, default = datetime.today())
     class Meta:
         verbose_name_plural = "Registrations"
