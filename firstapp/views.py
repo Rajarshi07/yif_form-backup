@@ -14,6 +14,7 @@ import random
 import smtplib, ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+import time
 # Create your views here.
 
 def index(request):
@@ -93,7 +94,7 @@ def paytm_gateway(request):
             paid_registration.mi_id = response_dict['MID']
             paid_registration.transaction_id = response_dict['TXNID']
             paid_registration.participant_id = response_dict['ORDERID']
-            paid_registration.timestamp = datetime.now()
+            paid_registration.timestamp = time.localtime()
             paid_registration.save()
             print('order successful')
             event_registered = events.objects.get(name = paid_registration.event)
