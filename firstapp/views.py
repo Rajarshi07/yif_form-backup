@@ -15,6 +15,7 @@ import smtplib, ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import pytz
+import yagmail
 # Create your views here.
 
 def index(request):
@@ -114,6 +115,15 @@ def paytm_gateway(request):
                     print('new_cost_updated')
             paid_registration.paid = True
             paid_registration.save()
+            text = "Hey, {name}\nYou have been registered for {event_name}.\nYour participant ID is: {participant_id}.\n"
+            text = text.format(name=paid_registration.name, event_name=paid_registration.event,
+                               participant_id=paid_registration.participant_id)
+            yag = yagmail.SMTP(user="youthbengal7@gmail.com", password='youth_bengal_6761')
+            yag.send(
+                to=paid_registration.email,
+                subject="Strike The Mic Participation Certificate",
+                contents=text,
+            )
             """port = 587  # For starttls
             smtp_server = "smtp.gmail.com"
             sender_email = event_registered.email
