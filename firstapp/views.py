@@ -114,7 +114,7 @@ def paytm_gateway(request):
                     print('new_cost_updated')
             paid_registration.paid = True
             paid_registration.save()
-            """port = 587  # For starttls
+            port = 587  # For starttls
             smtp_server = "smtp.gmail.com"
             sender_email = event_registered.email
             receiver_email = paid_registration.email
@@ -125,11 +125,7 @@ def paytm_gateway(request):
             message["To"] = receiver_email
             message['Subject'] = paid_registration.event
 
-            text = ""
-                Hey, {name}\n
-                You have been registered for {event_name}.\n
-                Your participant ID is: {participant_id}.\n
-            ""
+            text = ""Hey, {name}\nYou have been registered for {event_name}.\nYour participant ID is: {participant_id}.\n""
 
             text = text.format(name = paid_registration.name,event_name = paid_registration.event, participant_id = paid_registration.participant_id)
 
@@ -141,7 +137,7 @@ def paytm_gateway(request):
                 server.starttls(context=context)
                 server.ehlo()  # Can be omitted
                 server.login(sender_email, password)
-                server.sendmail(sender_email, receiver_email, message.as_string())"""
+                server.sendmail(sender_email, receiver_email, message.as_string())
             state = events.objects.get(name = paid_registration.event).select_state
             return render(request, 'paytm_status.html', {'result' : True, 'details': paid_registration, 'state':state})
         else:

@@ -57,9 +57,13 @@
           text-align: left;
           padding: 8px;
         }
-
-        tr:nth-child(even) {
-          background-color: #dddddd;
+        tr:first-child{
+            background-color: black;
+            color: white;
+        }
+        tr:nth-child(n+2) {
+          background-color: white;
+          color: black;
         }
         @media screen and (max-width: 800px)
         {
@@ -76,10 +80,12 @@
     {% endblock %}
 </head>
 <body>
+{% block heading %}
+{{ event_name }}
+{% endblock %}
 {% block rest_container %}
 <div id = "rest_container">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <p id = "event_name">{{ event_name }}</p>
     <table>
         <tr>
             <th>Date</th>

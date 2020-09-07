@@ -13,10 +13,42 @@ body
 }
 
 @font-face {
-        font-family: myFourthFont;
-        src: url("medium.otf");
-    }
+  font-family: myFourthFont;
+  src: url("medium.otf");
+}
 
+body
+{
+    padding: 0;
+    margin: 0;
+    background: linear-gradient(rgba(255,255,255,.2), rgba(255,255,255,.2)),url('bw_logo.png');
+    background-color : #F9F9F9;
+    background-size: 25rem 30rem;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center center;
+}
+#heading_div
+{
+    box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
+    width: 25rem;
+    text-align: center;
+    margin: 0 auto;
+    height: 3rem;
+    line-height: 3rem;
+    border-radius: 50px;
+    background-color: #FEFEFE;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+#state_heading
+{
+    text-align: center;
+    font-size: 2rem;
+    margin: 0;
+    color: gray;
+    font-family: myFourthFont;
+}
 header
 {
     width: 100%;

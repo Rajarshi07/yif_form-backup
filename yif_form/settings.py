@@ -25,7 +25,9 @@ SECRET_KEY = '93sc_f0c-f#t5k97-my$o)_12dj)-__$c0l!dx7mi@kie5#)mt'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
 ALLOWED_HOSTS = ['www.youthindiaevents.com','youthindiaevents.com']
+#ALLOWED_HOSTS = ['youthindiaevents.com', '127.0.0.1']
 
 
 # Application definition

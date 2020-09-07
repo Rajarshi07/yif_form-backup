@@ -2,12 +2,6 @@
   font-family: myFourthFont;
   src: url("medium.otf");
 }
-#state_heading
-{
-    font-family: mySecondFont;
-    text-align: center;
-    font-size: 2rem;
-}
 #state_section
 {
     font-family: mySecondFont;
