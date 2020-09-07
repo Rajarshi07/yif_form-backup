@@ -14,7 +14,7 @@ import random
 import smtplib, ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-import time
+import pytz
 # Create your views here.
 
 def index(request):
@@ -59,8 +59,8 @@ def main_form(request, event_name):
 
                 'MID': 'laGBhc85506378522813',
                 'ORDER_ID': str(cr.id),
-                'TXN_AMOUNT': cr.cost,
-                'CUST_ID': 'kcdeepak16@gmail.com',
+                'TXN_AMOUNT': str(cr.cost),
+                'CUST_ID': str(cr.email),
                 'INDUSTRY_TYPE_ID': 'Retail',
                 'WEBSITE': 'WEBSTAGING',
                 'CHANNEL_ID': 'WEB',
@@ -94,7 +94,7 @@ def paytm_gateway(request):
             paid_registration.mi_id = response_dict['MID']
             paid_registration.transaction_id = response_dict['TXNID']
             paid_registration.participant_id = response_dict['ORDERID']
-            paid_registration.timestamp = time.localtime()
+            paid_registration.timestamp = datetime.now(pytz.timezone('Asia/Kolkata'))
             paid_registration.save()
             print('order successful')
             event_registered = events.objects.get(name = paid_registration.event)
