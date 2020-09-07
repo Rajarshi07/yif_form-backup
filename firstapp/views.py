@@ -93,8 +93,7 @@ def paytm_gateway(request):
             paid_registration = registration.objects.get(id = int(response_dict['ORDERID']))
             paid_registration.mi_id = response_dict['MID']
             paid_registration.transaction_id = response_dict['TXNID']
-            paid_registration.participant_id = response_dict['ORDERID']
-            paid_registration.timestamp = datetime.now(pytz.timezone('Asia/Kolkata'))
+            paid_registration.participant_id = response_dict['ORDERID')
             paid_registration.save()
             print('order successful')
             event_registered = events.objects.get(name = paid_registration.event)
