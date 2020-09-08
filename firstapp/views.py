@@ -67,7 +67,7 @@ def main_form(request, event_name):
                 'CHANNEL_ID': 'WEB',
                 'CALLBACK_URL': 'https://youthindiaevents.com/paytm_gateway/',
             }
-            param_dict['CHECKSUMHASH'] = checksum.generate_checksum(param_dict, '89tbzmH&2RISIKL#')
+            param_dict['CHECKSUMHASH'] = checksum.generate_checksum(param_dict, '89tbzmH&2RlSIKL#')
             return render(request, 'paytm.html', {'param_dict' : param_dict})
         else:
             current_event = events.objects.get(name=event_name)
@@ -80,7 +80,7 @@ def main_form(request, event_name):
 
 @csrf_exempt
 def paytm_gateway(request):
-    MERCHANT_KEY = '89tbzmH&2RISIKL#'
+    MERCHANT_KEY = '89tbzmH&2RlSIKL#'
     form = request.POST
     response_dict = {}
     for i in form.keys():
