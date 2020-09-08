@@ -65,10 +65,10 @@ def main_form(request, event_name):
                 'INDUSTRY_TYPE_ID': 'Retail',
                 'WEBSITE': 'DEFAULT',
                 'CHANNEL_ID': 'WEB',
-                'CALLBACK_URL': 'https://www.youthindiaevents.com/paytm_gateway/',
+                'CALLBACK_URL': 'https://youthindiaevents.com/paytm_gateway/',
             }
             param_dict['CHECKSUMHASH'] = checksum.generate_checksum(param_dict, '89tbzmH&2RISIKL#')
-            return render(request, 'paytm.html', {'param_dict' : param_dict} )
+            return render(request, 'paytm.html', {'param_dict' : param_dict})
         else:
             current_event = events.objects.get(name=event_name)
             return render(request, 'form.html',
