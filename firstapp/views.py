@@ -67,7 +67,7 @@ def main_form(request, event_name):
                 'CHANNEL_ID': 'WEB',
                 'CALLBACK_URL': 'https://www.youthindiaevents.com/paytm_gateway/',
             }
-            param_dict['CHECKSUMHASH'] = checksum.generate_checksum(param_dict, 'Uga@WGMhXmW_ta%&')
+            param_dict['CHECKSUMHASH'] = checksum.generate_checksum(param_dict, '89tbzmH&2RISIKL#')
             return render(request, 'paytm.html', {'param_dict' : param_dict} )
         else:
             current_event = events.objects.get(name=event_name)
