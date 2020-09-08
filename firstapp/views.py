@@ -58,12 +58,12 @@ def main_form(request, event_name):
 
             param_dict = {
 
-                'MID': 'laGBhc85506378522813',
+                'MID': 'FDFLnc15559267363390',
                 'ORDER_ID': str(cr.id),
                 'TXN_AMOUNT': str(cr.cost),
                 'CUST_ID': str(cr.email),
                 'INDUSTRY_TYPE_ID': 'Retail',
-                'WEBSITE': 'WEBSTAGING',
+                'WEBSITE': 'DEFAULT',
                 'CHANNEL_ID': 'WEB',
                 'CALLBACK_URL': 'https://www.youthindiaevents.com/paytm_gateway/',
             }
@@ -80,7 +80,7 @@ def main_form(request, event_name):
 
 @csrf_exempt
 def paytm_gateway(request):
-    MERCHANT_KEY = 'Uga@WGMhXmW_ta%&'
+    MERCHANT_KEY = '89tbzmH&2RISIKL#'
     form = request.POST
     response_dict = {}
     for i in form.keys():
