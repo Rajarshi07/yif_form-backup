@@ -24,9 +24,7 @@ def index(request):
 def other_states(request):
     if request.method == "POST":
         state_name = request.POST.get('state_select')
-        print(state_name)
         state_con = state_connection.objects.get(state_name = state_name)
-        print(state_con.state_connected_to)
         return event_page(request, state_con.state_connected_to)
     states = state_connection.objects.all()
     return render(request, 'other_states.html', {'states' : states})
@@ -35,12 +33,10 @@ def event_page(request, state):
     if '_' in state:
         state = state.replace('_', ' ')
     all_events = events.objects.filter(select_state = state)
-    print(all_events)
     return render(request, 'events.html', { 'all_events' : all_events })
 
 def event_details(request, event_name):
     current_event = events.objects.get(name = event_name)
-    print(current_event.picture.url)
     return render(request, 'event_details.html', {'event' : current_event})
 
 def main_form(request, event_name):
@@ -96,7 +92,6 @@ def paytm_gateway(request):
             paid_registration.transaction_id = response_dict['TXNID']
             paid_registration.participant_id = response_dict['ORDERID']
             paid_registration.save()
-            print('order successful')
             event_registered = events.objects.get(name = paid_registration.event)
             current_date_revenue = date_revenue.objects.filter(event_key = event_registered.id, day = datetime.today().date())
             if not paid_registration.paid:
@@ -106,13 +101,11 @@ def paytm_gateway(request):
                     new_date_revenue.day = datetime.today().date()
                     new_date_revenue.no_of_participants = 1
                     new_date_revenue.revenue = int(paid_registration.cost)
-                    print('new_date_revenue created')
                     new_date_revenue.save()
                 else:
                     current_date_revenue[0].no_of_participants += 1
                     current_date_revenue[0].revenue += int(paid_registration.cost)
                     current_date_revenue[0].save()
-                    print('new_cost_updated')
             paid_registration.paid = True
             paid_registration.save()
             text = "Hey, {name}\nYou have been registered for {event_name}.\nYour participant ID is: {participant_id}.\n"
@@ -129,8 +122,6 @@ def paytm_gateway(request):
         else:
             state = events.objects.get(name=paid_registration.event).select_state
             return render(request, 'paytm_status.html', {'result' : False,  'state':state})
-            print('order was not successful because' + response_dict['RESPMSG'])
-    print(response_dict)
     return HttpResponse('Payment Successful')
 
 def society_leads_login(request):
@@ -151,7 +142,6 @@ def society_leads_login(request):
                 for j in date_revenues:
                     total_revenue += j.revenue
                     total_participants += j.no_of_participants
-                print(total_revenue, total_participants)
                 return render(request, 'download_excel.html', {'event_name' : event_name, 'date_revenues' : date_revenues,
                                                                'total_revenue' : total_revenue , 'total_participants': total_participants})
 
@@ -211,7 +201,7 @@ def export_users_xls(request):
         font_style = xlwt.XFStyle()
         font_style.font.bold = True
 
-        columns = ['Timestamp','Name', 'Email', 'Contact No', 'Link']
+        columns = ['Timestamp','Participant Id','Name', 'Email', 'Contact No', 'Link']
 
         for col_num in range(len(columns)):
             ws.write(row_num, col_num, columns[col_num], font_style) # at 0 row 0 column
@@ -219,7 +209,7 @@ def export_users_xls(request):
         # Sheet body, remaining rows
         font_style = xlwt.XFStyle()
 
-        rows = registration.objects.filter(event = event_name, paid = True).values_list('timestamp','name', 'email', 'number', 'link')
+        rows = registration.objects.filter(event = event_name, paid = True).values_list('timestamp','participant_id','name', 'email', 'number', 'link')
         for row in rows:
             row_num += 1
             for col_num in range(len(row)):

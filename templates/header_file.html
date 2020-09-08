@@ -4,8 +4,8 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
-    <title>Title</title>
     <link href = "{% static 'header_file.css' %}" rel="stylesheet" type="text/css">
+    <link rel="shortcut icon" href="{% static 'title_image.ico' %}" />
     {% block extra_links %}
     {% endblock %}
 </head>
@@ -21,5 +21,6 @@
     </h1></div>
     {% block rest_container %}
     {% endblock %}
+    <br>
 </body>
 </html>
