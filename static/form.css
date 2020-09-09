@@ -15,19 +15,6 @@ body
   font-family: myThirdFont;
   src: url("SF-Pro-Display-Thin.otf");
 }
-header p
-{
-    display: inline-block;
-    text-align: center;
-    font-family: myFirstFont;
-    margin-top: 1rem;
-    font-size: 3rem;    
-    color: gray;
-}
-#right_logo
-{
-    float: right;
-}
 #rest_container
 {
     width: 40%;
