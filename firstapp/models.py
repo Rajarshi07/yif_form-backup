@@ -13,7 +13,7 @@ class events(models.Model):
               ('Odisha','Odisha'),
               ('Tamil Nadu','Tamil Nadu'))
     select_state = models.CharField(max_length=50, choices = states, default = 1)
-    summary = models.TextField(max_length= 200)
+    summary = models.TextField(max_length= 500)
     picture = models.ImageField(upload_to = "event_posters")
     rules = models.TextField(max_length=1500)
     cost = models.IntegerField()
@@ -21,7 +21,7 @@ class events(models.Model):
     participants = models.IntegerField(default = 0)
     start_day = models.DateField(default = datetime.today() - timedelta(days = 7))
     email = models.EmailField(default = 'prodigygamer143@gmail.com',max_length=50)
-    password = models.CharField(default = '8017586761', max_length=100, editable=False)
+    password = models.CharField(default = '8017586761', max_length=100)
     class Meta:
         verbose_name_plural = "Events"
     def __str__(self):
