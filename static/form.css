@@ -50,6 +50,17 @@ form input
     width: 100%;
     text-align: center;
 }
+input[type = radio]
+{
+    display: inline-block;
+    margin: 0;
+}
+#type_select1, #type_select2
+{
+    display: inline-block;
+    margin: 0;
+    width: 10%;
+}
 #submit
 {
     width: 70%;

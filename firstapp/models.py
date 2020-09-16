@@ -17,11 +17,13 @@ class events(models.Model):
     picture = models.ImageField(upload_to = "event_posters")
     rules = models.TextField(max_length=1500)
     cost = models.IntegerField()
+    cost2 = models.IntegerField(default = 0,blank = True)
     total_revenue = models.IntegerField(default = 0)
     participants = models.IntegerField(default = 0)
-    start_day = models.DateField(default = datetime.today() - timedelta(days = 7))
+    start_day = models.DateField(default = datetime.today())
     email = models.EmailField(default = 'prodigygamer143@gmail.com',max_length=50)
     password = models.CharField(default = '8017586761', max_length=100)
+    group_event = models.BooleanField(default = False)
     class Meta:
         verbose_name_plural = "Events"
     def __str__(self):
@@ -32,7 +34,8 @@ class registration(models.Model):
     name = models.CharField(max_length = 100)
     email = models.EmailField(max_length = 100)
     number = models.CharField(max_length= 20)
-    link = models.CharField(max_length=500)
+    link = models.CharField(blank = True,max_length=500)
+    referral = models.CharField(blank = True, max_length = 50)
     event = models.CharField(max_length=100, default = 'Null')
     cost = models.CharField(max_length = 4, default = '100')
     paid = models.BooleanField(default = False)

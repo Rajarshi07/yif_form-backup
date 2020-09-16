@@ -16,7 +16,8 @@ class form_registrations(forms.Form):
     email = forms.EmailField(label="Email", max_length=50,  error_messages={'invalid': 'Incorrect Email Address'})
     number = forms.CharField(label="Number", min_length=10, validators=[MinLengthValidator(10)],
                              error_messages={'min_length': ('Ensure the number has at least 10 digits')})
-    link = forms.CharField(label="Link", max_length=50)
+    link = forms.CharField(label="Link (If Any)", max_length = 50, required =  False)
+    referral = forms.CharField(label = "Referral (If Any)", max_length = 100,required = False)
     event = forms.CharField(label="Event", max_length=50, widget= forms.HiddenInput())
     cost = forms.CharField(label="Cost", max_length=50, widget= forms.HiddenInput())
 
