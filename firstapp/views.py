@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from forms.form1 import form_registrations
-from .models import events, registration, date_revenue, society_leads, state_connection
+from .models import events, registration, date_revenue, society_leads, state_connection, coupons
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate,login, logout
@@ -32,8 +32,9 @@ def other_states(request):
 def event_page(request, state):
     if '_' in state:
         state = state.replace('_', ' ')
-    all_events = events.objects.filter(select_state = state)
-    return render(request, 'events.html', { 'all_events' : all_events })
+    cluster1 = events.objects.filter(select_state = state, cluster = 1)
+    cluster2 = events.objects.filter(select_state = state, cluster = 2)
+    return render(request, 'events.html', {'cluster1' : cluster1, 'cluster2' : cluster2})
 
 def event_details(request, event_name):
     current_event = events.objects.get(name = event_name)
@@ -49,7 +50,9 @@ def main_form(request, event_name):
             link = request.POST.get('link')
             event = request.POST.get('event')
             cost = request.POST.get('cost')
-            cr = registration(name = name, email = email, number = number, link = link, event = event, cost = cost)
+            referral = request.POST.get('referral')
+            coupon = request.POST.get('coupon')
+            cr = registration(name = name, email = email, number = number, link = link, event = event, cost = cost, referral = referral, coupon = coupon)
             cr.save()
 
             param_dict = {
@@ -66,18 +69,26 @@ def main_form(request, event_name):
             return render(request, 'paytm.html', {'param_dict' : param_dict})
         else:
             current_event = events.objects.get(name=event_name)
-            return render(request, 'form.html',
-                          {'form': current_registration, 'event_name': current_event.name, 'event_cost': current_event.cost})
+            all_coupons = coupons.objects.filter(event=current_event.id, active=True)
+            if (current_event.group_event):
+                return render(request, 'form.html',
+                              {'form': current_registration, 'event_name': current_event.name, 'event_cost': str(current_event.cost),
+                               'group': True, 'cost2': str(current_event.cost2), 'coupons' : all_coupons})
+            else:
+                return render(request, 'form.html',
+                              {'form': current_registration, 'event_name': current_event.name, 'event_cost': current_event.cost,
+                               'group': False,'cost2' : current_event.cost, 'coupons' : all_coupons})
     current_event = events.objects.get(name = event_name)
     intital_dict = {'event' : current_event.name, 'cost' : current_event.cost}
     form = form_registrations(initial = intital_dict)
+    all_coupons = coupons.objects.filter(event = current_event.id, active = True)
     if(current_event.group_event):
         return render(request, 'form.html',{ 'form' : form, 'event_name': current_event.name,'event_cost': str(current_event.cost),
-                                         'group' : True, 'cost2' : str(current_event.cost2)})
+                                         'group' : True, 'cost2' : str(current_event.cost2), 'coupons' : all_coupons})
     else:
         return render(request, 'form.html',
                       {'form': form, 'event_name': current_event.name, 'event_cost': current_event.cost,
-                       'group': False})
+                       'group': False,'cost2':current_event.cost,  'coupons' : all_coupons})
 
 
 @csrf_exempt
@@ -207,7 +218,7 @@ def export_users_xls(request):
         font_style = xlwt.XFStyle()
         font_style.font.bold = True
 
-        columns = ['Timestamp','Participant Id','Name', 'Email', 'Contact No', 'Link']
+        columns = ['Timestamp','Participant Id','Name', 'Email', 'Contact No','Cost', 'Link', 'Referral', 'Coupon']
 
         for col_num in range(len(columns)):
             ws.write(row_num, col_num, columns[col_num], font_style) # at 0 row 0 column
@@ -215,7 +226,7 @@ def export_users_xls(request):
         # Sheet body, remaining rows
         font_style = xlwt.XFStyle()
 
-        rows = registration.objects.filter(event = event_name, paid = True).values_list('timestamp','participant_id','name', 'email', 'number', 'link')
+        rows = registration.objects.filter(event = event_name, paid = True).values_list('timestamp','participant_id','name', 'email', 'number','cost', 'link', 'referral','coupon')
         for row in rows:
             row_num += 1
             for col_num in range(len(row)):
