@@ -14,7 +14,8 @@
         {% endblock %}
         {% block rest_container%}
         <div id = "state_section">
-            {% for event in all_events %}
+            <p style = "font-size: 2rem;">Cluster1</p>
+            {% for event in cluster1 %}
             <div class = "states" id = "state_1">
                 <div class = "state_card">
                     <img src = "{{ event.picture.url }}">
@@ -24,7 +25,17 @@
                 <a href = '{{ request.scheme }}://{{ request.get_host }}/events/{{ event.name }}/register'><button>REGISTER NOW</NOW></button></a>
             </div>
             {% endfor %}
-
+            <p style = "font-size: 2rem;"> Cluster 2 </p>
+            {% for event in cluster2 %}
+            <div class = "states" id = "state_2">
+                <div class = "state_card">
+                    <img src = "{{ event.picture.url }}">
+                </div>
+                <p>{{ event.name }}</p>
+                <a href = '{{ request.scheme }}://{{ request.get_host }}/events/{{ event.name }}'><button>EVENT DETAILS</button></a>
+                <a href = '{{ request.scheme }}://{{ request.get_host }}/events/{{ event.name }}/register'><button>REGISTER NOW</NOW></button></a>
+            </div>
+            {% endfor %}
             </div>
         </div>
         {% endblock %}

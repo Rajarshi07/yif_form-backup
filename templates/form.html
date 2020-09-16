@@ -17,21 +17,51 @@
             <form enctype="multipart/form-data" method = "POST">
                 {% csrf_token %}
                 {{ form.as_p }}
+                <div onclick = "couponclicked()" id = "coupon_submit">Apply Coupon</div>
                 {% if group %}
                 <input type = "radio" name = "type_select" id = "type_select1" onclick = "changeCost('1')">
                 <label for = "type_select1">Solo</label>
                 <input type = "radio" name = "type_select" id = "type_select2" onclick = "changeCost('2')">
                 <label for = "type_select2">Group</label>
                 {% endif %}
+                <p style = "display: none;" id = "discount_details"></p>
                 <p>Event Chosen: {{ event_name }}</p>
                 <div id ="submit_div"><input id = "submit" type="submit" value="PAY RS {{event_cost}}"></div>
             </form>
         </div>
-        <script>
+        <script type="application/javascript">
+            original_cost = parseInt(document.getElementById("id_cost").value);
+            function couponclicked()
+            {
+                var applied = 0;
+                var code_entered = document.getElementById("id_coupon").value;
+                {% for c in coupons %}
+                    var ccode = "{{c.code}}";
+                    var discount = "{{c.discount_amount}}";
+                    if(code_entered == ccode)
+                    {
+                        document.getElementById("submit").value = "PAY RS "+ (original_cost - parseInt(discount));
+                        document.getElementById("discount_details").style.display = "block";
+                        document.getElementById("discount_details").textContent = "Code Applied. Discount Amount =" + (original_cost - parseInt(discount));
+                        applied = 1;
+                        document.getElementById("id_cost").value = original_cost - parseInt(discount);
+                    }
+                {% endfor %}
+                if(applied == 0)
+                {
+                    document.getElementById("discount_details").style.display = "block";
+                    document.getElementById("discount_details").textContent = "Invalid Coupon";
+                }
+            }
             var a = {{ event_cost }};
+            var b = a;
             console.log(a);
-            var b = {{ cost2 }};
-            console.log(b);
+            var False = "False";
+            var True = "True";
+            if({{group}} == "True")
+            {
+                var b = {{ cost2 }};
+            }
             function changeCost(c)
            {
                 if (c == '1')

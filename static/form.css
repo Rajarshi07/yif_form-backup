@@ -75,6 +75,34 @@ input[type = radio]
 {
     cursor: pointer;
 }
+#id_coupon
+{
+    width: 60%;
+    display: inline-block;
+}
+#coupon_submit
+{
+    width: 30%;
+    transform: translateY(-220%);
+    background-color: black;
+    border-radius: 25px;
+    border:none;
+    color: white;
+    font-family: myFourthFont;
+    text-align: center;
+    line-height: 2rem;
+    height: 2rem;
+    float: right;
+}
+#coupon_submit:hover
+{
+    cursor: pointer;
+}
+#discount_details
+{
+    font-family: myFourthFont;
+    width: 100%;
+}
 @media screen and (max-width: 800px)
 {
     html
@@ -92,6 +120,10 @@ input[type = radio]
     #submit
     {
         width: 80%;
+    }
+    #coupon_submit
+    {
+        width: 35%;
     }
 }
     
