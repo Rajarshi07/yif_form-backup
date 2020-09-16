@@ -15,6 +15,8 @@ urlpatterns = [
     path('special_admin_login/', views.admin_login, name = "admin_login"),
     path('export_user_xls/', views.export_users_xls, name = "download_xls"),
     path('paytm_gateway/', views.paytm_gateway, name = "paytm_gateway"),
+    path('email_test/', views.email_test, name = 'email_test'),
+    path('email_test/<str:event_name>', views.send_email, name = "send email")
 ]
 
 urlpatterns = urlpatterns + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
