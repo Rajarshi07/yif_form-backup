@@ -53,7 +53,6 @@ def main_form(request, event_name):
             cr.save()
 
             param_dict = {
-
                 'MID': 'FDFLnc15559267363390',
                 'ORDER_ID': str(cr.id),
                 'TXN_AMOUNT': str(cr.cost),
@@ -72,7 +71,14 @@ def main_form(request, event_name):
     current_event = events.objects.get(name = event_name)
     intital_dict = {'event' : current_event.name, 'cost' : current_event.cost}
     form = form_registrations(initial = intital_dict)
-    return render(request, 'form.html',{ 'form' : form, 'event_name': current_event.name,'event_cost': current_event.cost})
+    if(current_event.group_event):
+        return render(request, 'form.html',{ 'form' : form, 'event_name': current_event.name,'event_cost': str(current_event.cost),
+                                         'group' : True, 'cost2' : str(current_event.cost2)})
+    else:
+        return render(request, 'form.html',
+                      {'form': form, 'event_name': current_event.name, 'event_cost': current_event.cost,
+                       'group': False})
+
 
 @csrf_exempt
 def paytm_gateway(request):

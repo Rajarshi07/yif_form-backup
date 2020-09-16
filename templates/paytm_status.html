@@ -81,8 +81,9 @@ REGISTRATION STATUS
     <p> We have sent a confirmation mail to {{ details.email }}. <br> Kindly check it out </p>
     <p> Glad to have you on board with us <br><br> Regards, <br> Youth India Foundation </p>
     <div id = "another"><a href = "{{ request.scheme }}://{{ request.get_host }}/{{state}}/events"><button>Register For Another Event</button></a></div>
+    <p>For any queries, contact us on <br> contactus@youthindiafoundation.com </p>
     {% else %}
-    <p> Sorry your registrations was unsuccessful.</br> Please try again <br> For any queries, contact us on <br> 8017586761 </p>
+    <p> Sorry your registrations was unsuccessful.</br> Please try again <br> For any queries, contact us on <br> contactus </p>
     <div><a href = "{{ request.scheme }}://{{ request.get_host }}/{{state}}/events"><button>Register Again</button></a></div>
 {% endif %}
 </div>

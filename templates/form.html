@@ -17,10 +17,35 @@
             <form enctype="multipart/form-data" method = "POST">
                 {% csrf_token %}
                 {{ form.as_p }}
+                {% if group %}
+                <input type = "radio" name = "type_select" id = "type_select1" onclick = "changeCost('1')">
+                <label for = "type_select1">Solo</label>
+                <input type = "radio" name = "type_select" id = "type_select2" onclick = "changeCost('2')">
+                <label for = "type_select2">Group</label>
+                {% endif %}
                 <p>Event Chosen: {{ event_name }}</p>
                 <div id ="submit_div"><input id = "submit" type="submit" value="PAY RS {{event_cost}}"></div>
             </form>
         </div>
+        <script>
+            var a = {{ event_cost }};
+            console.log(a);
+            var b = {{ cost2 }};
+            console.log(b);
+            function changeCost(c)
+           {
+                if (c == '1')
+                {
+                    document.getElementById("submit").value = "PAY RS "+a;
+                    document.getElementById("id_cost").value = a;
+                }
+                else
+                {
+                    document.getElementById("submit").value = "PAY RS "+b;
+                    document.getElementById("id_cost").value = b;
+                }
+           }
+        </script>
         {% endblock %}
     </body>
 </html>
