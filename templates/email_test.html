@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Email Test</title>
+</head>
+<body>
+<table style= "text-align: center;">
+    <tr>
+        <th>Email</th>
+        <th>Send Email</th>
+    </tr>
+    <br>
+    {% for event in all_events %}
+    <tr>
+        <th>{{ event.email  }}</th>
+        <th><a href = "{{event.name}}">Send Email</a></th>
+    </tr>
+    <br>
+    {% endfor %}
+</table>
+</body>
+</html>

@@ -223,3 +223,17 @@ def export_users_xls(request):
     else:
         return HttpResponse('Not Allowed')
 
+
+def email_test(request):
+    all_events = events.objects.all()
+    return render(request, 'email_test.html', {'all_events' : all_events})
+
+def send_email(request, event_name):
+    event = events.objects.get(name = event_name)
+    yag = yagmail.SMTP(user=event.email, password=event.password)
+    yag.send(
+        to='kcdeepak16@gmail.com',
+        subject= " Registration",
+        contents="Test successful"
+    )
+    return HttpResponse("Test successful")
