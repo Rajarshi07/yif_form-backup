@@ -55,6 +55,39 @@ def main_form(request, event_name):
             cr = registration(name = name, email = email, number = number, link = link, event = event, cost = cost, referral = referral, coupon = coupon)
             cr.save()
 
+            current_event = events.objects.get(name = event)
+            if(current_event.cost == 0):
+                text = "Hey, {name}\nYou have been registered for {event_name}.\nYour participant ID is: {participant_id}.\n"
+                text = text.format(name=cr.name, event_name=cr.event,
+                                   participant_id=cr.id)
+                cr.participant_id = cr.id;
+                cr.save()
+                yag = yagmail.SMTP(user=current_event.email, password=current_event.password)
+                yag.send(
+                    to=cr.email,
+                    subject=cr.event + " Registration",
+                    contents=text
+                )
+                print("cost 0")
+                return render(request, 'paytm_status.html',
+                              {'result': True, 'details': cr, 'state': current_event.select_state})
+            if(current_event.group_event):
+                if(int(cost) != current_event.cost and int(cost) !=current_event.cost2 ):
+                    print("group")
+                    return render(request, 'paytm_status.html',
+                                  {'result': False, 'details': cr, 'state': current_event.select_state})
+            else:
+                if (len(coupon)>0):
+                    c = coupons.objects.filter(event = current_event.id).filter(code = coupon).values('discount_amount')
+                    print(c)
+                    if c:
+                        if(int(cost) != int(int(current_event.cost)-int(c[0]['discount_amount'])) and int(cost) != current_event.cost):
+                            return render(request, 'paytm_status.html',
+                                          {'result': False, 'details': cr, 'state': current_event.select_state})
+                else:
+                    if (int(cost) != current_event.cost):
+                        return render(request, 'paytm_status.html',
+                                      {'result': False, 'details': cr, 'state': current_event.select_state})
             param_dict = {
                 'MID': 'FDFLnc15559267363390',
                 'ORDER_ID': str(cr.id),
@@ -218,7 +251,7 @@ def export_users_xls(request):
         font_style = xlwt.XFStyle()
         font_style.font.bold = True
 
-        columns = ['Timestamp','Participant Id','Name', 'Email', 'Contact No','Cost', 'Link', 'Referral', 'Coupon']
+        columns = ['Timestamp','Participant Id','Name', 'Email', 'Contact No','Cost','Link', 'Referral', 'Coupon', 'Paid', 'Transaction Id']
 
         for col_num in range(len(columns)):
             ws.write(row_num, col_num, columns[col_num], font_style) # at 0 row 0 column
@@ -226,7 +259,7 @@ def export_users_xls(request):
         # Sheet body, remaining rows
         font_style = xlwt.XFStyle()
 
-        rows = registration.objects.filter(event = event_name, paid = True).values_list('timestamp','participant_id','name', 'email', 'number','cost', 'link', 'referral','coupon')
+        rows = registration.objects.filter(event = event_name, paid = True).values_list('timestamp','participant_id','name', 'email', 'number','cost', 'link', 'referral','coupon', 'paid', 'transaction_id')
         for row in rows:
             row_num += 1
             for col_num in range(len(row)):
