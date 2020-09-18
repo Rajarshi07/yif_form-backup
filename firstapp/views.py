@@ -54,7 +54,7 @@ def main_form(request, event_name):
             referral = request.POST.get('referral')
             coupon = request.POST.get('coupon')
 	    timestamp = datetime.now()
-            cr = registration(name = name, email = email, number = number, link = link, event = event, cost = cost, referral = referral, coupon = coupon)
+	    cr = registration(name = name, email = email, number = number, link = link, event = event, cost = cost, referral = referral, coupon = coupon, timestamp = timestamp)
             cr.save()
             current_event = events.objects.get(name = event)
             if(current_event.cost == 0):
