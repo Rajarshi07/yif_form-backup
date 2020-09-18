@@ -14,6 +14,7 @@ import random
 import smtplib, ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from datetime import datetime
 import pytz
 import yagmail
 # Create your views here.
@@ -52,9 +53,9 @@ def main_form(request, event_name):
             cost = request.POST.get('cost')
             referral = request.POST.get('referral')
             coupon = request.POST.get('coupon')
+	    timestamp = datetime.now()
             cr = registration(name = name, email = email, number = number, link = link, event = event, cost = cost, referral = referral, coupon = coupon)
             cr.save()
-
             current_event = events.objects.get(name = event)
             if(current_event.cost == 0):
                 text = "Hey, {name}\nYou have been registered for {event_name}.\nYour participant ID is: {participant_id}.\n"
@@ -251,7 +252,7 @@ def export_users_xls(request):
         font_style = xlwt.XFStyle()
         font_style.font.bold = True
 
-        columns = ['Timestamp','Participant Id','Name', 'Email', 'Contact No','Cost','Link', 'Referral', 'Coupon', 'Paid', 'Transaction Id']
+        columns = ['Day Registered','Participant Id','Name', 'Email', 'Contact No','Cost','Link', 'Referral', 'Coupon', 'Paid', 'Transaction Id']
 
         for col_num in range(len(columns)):
             ws.write(row_num, col_num, columns[col_num], font_style) # at 0 row 0 column
@@ -259,7 +260,7 @@ def export_users_xls(request):
         # Sheet body, remaining rows
         font_style = xlwt.XFStyle()
 
-        rows = registration.objects.filter(event = event_name, paid = True).values_list('timestamp','participant_id','name', 'email', 'number','cost', 'link', 'referral','coupon', 'paid', 'transaction_id')
+        rows = registration.objects.filter(event = event_name).values_list('day_registered','participant_id','name', 'email', 'number','cost', 'link', 'referral','coupon', 'paid', 'transaction_id')
         for row in rows:
             row_num += 1
             for col_num in range(len(row)):
