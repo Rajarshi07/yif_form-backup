@@ -103,6 +103,11 @@ input[type = radio]
     font-family: myFourthFont;
     width: 100%;
 }
+#payment_steps
+{
+    font-size: 1.2rem;
+    font-family: myThirdFont !important;
+}
 @media screen and (max-width: 800px)
 {
     html

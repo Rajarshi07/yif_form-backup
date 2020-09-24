@@ -174,7 +174,7 @@ def paytm_gateway(request):
         else:
             state = events.objects.get(name=paid_registration.event).select_state
             return render(request, 'paytm_status.html', {'result' : False,  'state':state})
-    return HttpResponse('Payment Successful')
+    
 
 def society_leads_login(request):
     if request.method == "POST":
@@ -253,7 +253,7 @@ def export_users_xls(request):
         font_style = xlwt.XFStyle()
         font_style.font.bold = True
 
-        columns = ['Day Registered','Participant Id','Name', 'Email', 'Contact No','Cost','Link', 'Referral', 'Coupon', 'Paid', 'Transaction Id']
+        columns = ['Timestamp','Participant Id','Name', 'Email', 'Contact No','Cost','Link', 'Referral', 'Coupon', 'Paid', 'Transaction Id']
 
         for col_num in range(len(columns)):
             ws.write(row_num, col_num, columns[col_num], font_style) # at 0 row 0 column
@@ -261,7 +261,7 @@ def export_users_xls(request):
         # Sheet body, remaining rows
         font_style = xlwt.XFStyle()
 
-        rows = registration.objects.filter(event = event_name).values_list('day_registered','participant_id','name', 'email', 'number','cost', 'link', 'referral','coupon', 'paid', 'transaction_id')
+        rows = registration.objects.filter(event = event_name).values_list('timestamp','participant_id','name', 'email', 'number','cost', 'link', 'referral','coupon', 'paid', 'transaction_id')
         for row in rows:
             row_num += 1
             for col_num in range(len(row)):

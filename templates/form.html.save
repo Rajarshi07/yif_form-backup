@@ -26,9 +26,7 @@
                 {% endif %}
                 <p style = "display: none;" id = "discount_details"></p>
                 <p>Event Chosen: {{ event_name }}</p>
-		<p id = "techorbusi"></p>
-		<p>After payment, please DO NOT refresh the page until you get an email.<br>It might take up to 5 minutes for us to verify the payment and upto
-		10 minutes when paying with <span style = "color: red;">GPay UPI</span></p>
+		<p>After payment, please DO NOT refresh the page until you get an email.<br>It might take up to 5 minutes for us to verify the payment.</p>
                 <div id ="submit_div"><input id = "submit" type="submit" value="PAY RS {{event_cost}}"></div>
 		<br><br>
 		<p id = "payment_steps">Steps for making the payment<br>With Paytm:<br>1. Enter your number and click on Get Otp.<br>
@@ -40,26 +38,15 @@
         </div>
         <script type="application/javascript">
             original_cost = parseInt(document.getElementById("id_cost").value);
-	    var event_n = "{{event_name}}"
-	    var tech = event_n.slice(0,8);
-            var busi = event_n.slice(0,17);
-            if(tech == "TECHFEST")
-            {	
-		document.getElementById("techorbusi").textContent = "APPLY CODE:\n 'ONE' for participating in one event.\n'TWO' for two events";
-		document.getElementById("techorbusi").textContent += "\n'THREE' for three events.\n'FOUR' for four events\n'FIVE' for five events";
-		document.getElementById("techorbusi").textContent += "\n Enter the name(s) of the event(s) in the Link Field"; 
-            }
-            if(busi == "BUSINESS CONCLAVE")
-            {
- 		document.getElementById("techorbusi").textContent = "APPLY CODE:\n 'ONE' for participating in one event.\n'TWO' for two events";
-		document.getElementById("techorbusi").textContent += "\n'THREE' for three events.\n'FOUR' for four events";
-		document.getElementById("techorbusi").textContent += " Enter the name(s) of the event(s) in the Link Field";
-            }
-	    if(busi == "COMMERCE CONCLAVE")
+ 	    var event = "{{event_name}}";
+            var tech = event.slice(0,8);
+    	    var business = event.slice(0,17);
+	    if(tech == "TECHFEST")
 	    {
-		document.getElementById("techorbusi").textContent = "APPLY CODE:\n 'ONE' for participating in one event.\n'TWO' for two events";
-		document.getElementById("techorbusi").textContent += "'THREE' for three events.\n Enter the name(s) of the event(s) in Link field";
-  	    }
+ 		document.getElementById("techorbus").textContent = "Apply Code\n 'ONE' for particpating in one event.\n 'TWO' for participating in two events.";
+		document.getElementById("techorbus").textContent += "\n 'THREE' for participating in THREE events.\n 'FOUR' for participating in four events";
+    	    }
+		
             function couponclicked()
             {
                 var applied = 0;
