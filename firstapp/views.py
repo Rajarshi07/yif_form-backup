@@ -62,7 +62,7 @@ def main_form(request, event_name):
                 text = "Hey, {name}\nYou have been registered for {event_name}.\nYour participant ID is: {participant_id}.\n"
                 text = text.format(name=cr.name, event_name=cr.event,
                                    participant_id=cr.id)
-                cr.participant_id = cr.id;
+                cr.participant_id = cr.id
                 cr.save()
                 yag = yagmail.SMTP(user=current_event.email, password=current_event.password)
                 yag.send(
@@ -73,6 +73,11 @@ def main_form(request, event_name):
                 print("cost 0")
                 return render(request, 'paytm_status.html',
                               {'result': True, 'details': cr, 'state': current_event.select_state})
+            else:
+                cr.participant_id = cr.id
+                cr.save()
+                return render(request, 'paytm_status.html',
+                              {'result': False, 'details': cr, 'state': current_event.select_state})
             if(current_event.group_event):
                 if(int(cost) != current_event.cost and int(cost) !=current_event.cost2 ):
                     print("group")

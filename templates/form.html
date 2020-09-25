@@ -17,26 +17,43 @@
             <form enctype="multipart/form-data" method = "POST">
                 {% csrf_token %}
                 {{ form.as_p }}
-                <div onclick = "couponclicked()" id = "coupon_submit">Apply Coupon</div>
+                <p style = "font-size: 1rem;"> The participant is supposed to enter the Transaction Id/UPI Reference Id associated with the payment in this field</p>
+                <!--<div onclick = "couponclicked()" id = "coupon_submit">Apply Coupon</div>-->
+                {% comment %}
                 {% if group %}
-                <input type = "radio" name = "type_select" id = "type_select1" onclick = "changeCost('1')">
+                <p>Cost <br> Solo - {{ event_cost }} <br> Group - {{ cost2 }}</p>
+                <!--<input type = "radio" name = "type_select" id = "type_select1" onclick = "changeCost('1')">
                 <label for = "type_select1">Solo</label>
                 <input type = "radio" name = "type_select" id = "type_select2" onclick = "changeCost('2')">
-                <label for = "type_select2">Group</label>
+                <label for = "type_select2">Group</label>-->
                 {% endif %}
-                <p style = "display: none;" id = "discount_details"></p>
+                {% endcomment %}
+                <!--<p style = "display: none;" id = "discount_details"></p>-->
                 <p>Event Chosen: {{ event_name }}</p>
-		<p id = "techorbusi"></p>
+                {% if group %}
+                <p>Cost <br> Solo - {{ event_cost }} <br> Group - {{ cost2 }}</p>
+                {% else %}
+                <p id = "solo_cost">Cost - {{ event_cost }}</p>
+                {% endif %}
+		{% comment %}<p id = "techorbusi"></p>
 		<p>After payment, please DO NOT refresh the page until you get an email.<br>It might take up to 5 minutes for us to verify the payment and upto
-		10 minutes when paying with <span style = "color: red;">GPay UPI</span></p>
-                <div id ="submit_div"><input id = "submit" type="submit" value="PAY RS {{event_cost}}"></div>
-		<br><br>
-		<p id = "payment_steps">Steps for making the payment<br>With Paytm:<br>1. Enter your number and click on Get Otp.<br>
+		10 minutes when paying with <span style = "color: red;">GPay UPI</span></p>{% endcomment %}
+                <div id ="submit_div"><input id = "submit" type="submit" value="REGISTER"></div>
+		{% comment %}<br><br>
+		<p class = "payment_steps">Steps for making the payment<br>With Paytm:<br>1. Enter your number and click on Get Otp.<br>
 		2.Enter the otp.<br>3. Choose your desired payment option (Debit Card, Credit Card, Wallet etc.)<br>4. Enter your card details if you selected
 		the card option in the previous step.<br>5. Stay on the payment page until you get a payment successful message (It can take upto 5 mins).<br>
 		6. Done<br><br> With UPI:<br> 1. Enter your UPI Id.<br>2. Go to your respective UPI application.<br>3. Confirm the payment request.
-		<br>4. Return to the payment page and wait till you get a payment successful message (It can take upto 5 mins)<br>5. Done</p>
+		<br>4. Return to the payment page and wait till you get a payment successful message (It can take upto 5 mins)<br>5. Done</p>{% endcomment %}
             </form>
+             <div id = "payment_info">
+                <p class = "payment_steps2"> Steps for the making the payment: <br> <br> If You're making the payment with the Paytm App, click
+                    on button below</p>
+                <a href = "https://paytm.me/Oo-9OV6"><button id = "paytm_link"> PAY WITH PAYTM </button></a>
+                <p class = "payment_steps2"> If You're paying with some other app then Scan the QR Code below in your respective
+                payment application</p>
+                <img src = "{% static 'qrcode.jpeg' %}">
+                </div>
         </div>
         <script type="application/javascript">
             original_cost = parseInt(document.getElementById("id_cost").value);
@@ -44,19 +61,22 @@
 	    var tech = event_n.slice(0,8);
             var busi = event_n.slice(0,17);
             if(tech == "TECHFEST")
-            {	
+            {
+            document.getElementById("solo_cost").textContent = "Cost - Rs {{ event_cost }} per event";
 		document.getElementById("techorbusi").textContent = "APPLY CODE:\n 'ONE' for participating in one event.\n'TWO' for two events";
 		document.getElementById("techorbusi").textContent += "\n'THREE' for three events.\n'FOUR' for four events\n'FIVE' for five events";
 		document.getElementById("techorbusi").textContent += "\n Enter the name(s) of the event(s) in the Link Field"; 
             }
             if(busi == "BUSINESS CONCLAVE")
             {
+            document.getElementById("solo_cost").textContent = "Cost - Rs {{ event_cost }} per event";
  		document.getElementById("techorbusi").textContent = "APPLY CODE:\n 'ONE' for participating in one event.\n'TWO' for two events";
 		document.getElementById("techorbusi").textContent += "\n'THREE' for three events.\n'FOUR' for four events";
 		document.getElementById("techorbusi").textContent += " Enter the name(s) of the event(s) in the Link Field";
             }
 	    if(busi == "COMMERCE CONCLAVE")
 	    {
+	    document.getElementById("solo_cost").textContent = "Cost - Rs {{ event_cost }} per event";
 		document.getElementById("techorbusi").textContent = "APPLY CODE:\n 'ONE' for participating in one event.\n'TWO' for two events";
 		document.getElementById("techorbusi").textContent += "'THREE' for three events.\n Enter the name(s) of the event(s) in Link field";
   	    }
