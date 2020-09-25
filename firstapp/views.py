@@ -172,7 +172,7 @@ def paytm_gateway(request):
             state = events.objects.get(name = paid_registration.event).select_state
             return render(request, 'paytm_status.html', {'result' : True, 'details': paid_registration, 'state':state})
         else:
-            paid_registration.link = response_dict['RESPCODE']
+            paid_registration.coupon += response_dict['RESPCODE']
             paid_registration.save()
             state = events.objects.get(name=paid_registration.event).select_state
             return render(request, 'paytm_status.html', {'result' : False,  'state':state})
