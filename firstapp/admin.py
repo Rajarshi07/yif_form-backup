@@ -13,7 +13,7 @@ class RegistrationAdmin(admin.ModelAdmin):
     class Meta:
         model = registration
         fields = "__all__"
-    list_display = ('name','event','email','participant_id')
-    search_fields =  ('name', 'event', 'email', 'participant_id')
+    list_display = ('name','event','email','participant_id',"coupon","transaction_id","timestamp")
+    search_fields =  ('name', 'event', 'email', 'participant_id',"coupon","transaction_id","timestamp")
 
 admin.site.register(registration,RegistrationAdmin)

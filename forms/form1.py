@@ -18,7 +18,7 @@ class form_registrations(forms.Form):
                              error_messages={'min_length': ('Ensure the number has at least 10 digits')})
     link = forms.CharField(label="Link (If Any)", max_length = 50, required =  False)
     referral = forms.CharField(label = "Referral (If Any)", max_length = 100,required = False)
-    coupon = forms.CharField(label = "Transaction Id  or UPI Reference Id", max_length=100)
+    coupon = forms.CharField(label = "Transaction Id (Last 5 digits)", max_length=100)
     event = forms.CharField(label="Event", max_length=50, widget= forms.HiddenInput())
     cost = forms.CharField(label="Cost", max_length=50, widget= forms.HiddenInput())
 

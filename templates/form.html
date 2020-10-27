@@ -17,17 +17,14 @@
             <form enctype="multipart/form-data" method = "POST">
                 {% csrf_token %}
                 {{ form.as_p }}
-                <p style = "font-size: 1rem;"> The participant is supposed to enter the Transaction Id/UPI Reference Id associated with the payment in this field</p>
+                <p id = "transaction_id" style = "font-size: 1rem;"> The participant is supposed to enter the Transaction Id/UPI Reference Id associated with the payment in this field</p>
                 <!--<div onclick = "couponclicked()" id = "coupon_submit">Apply Coupon</div>-->
-                {% comment %}
                 {% if group %}
-                <p>Cost <br> Solo - {{ event_cost }} <br> Group - {{ cost2 }}</p>
-                <!--<input type = "radio" name = "type_select" id = "type_select1" onclick = "changeCost('1')">
+                <input type = "radio" name = "type_select" id = "type_select1" onclick = "changeCost('1')">
                 <label for = "type_select1">Solo</label>
                 <input type = "radio" name = "type_select" id = "type_select2" onclick = "changeCost('2')">
-                <label for = "type_select2">Group</label>-->
+                <label for = "type_select2">Group</label>
                 {% endif %}
-                {% endcomment %}
                 <!--<p style = "display: none;" id = "discount_details"></p>-->
                 <p>Event Chosen: {{ event_name }}</p>
                 {% if group %}
@@ -35,8 +32,8 @@
                 {% else %}
                 <p id = "solo_cost">Cost - {{ event_cost }}</p>
                 {% endif %}
-		{% comment %}<p id = "techorbusi"></p>
-		<p>After payment, please DO NOT refresh the page until you get an email.<br>It might take up to 5 minutes for us to verify the payment and upto
+		<p id = "techorbusi"></p>
+		{% comment %}<p>After payment, please DO NOT refresh the page until you get an email.<br>It might take up to 5 minutes for us to verify the payment and upto
 		10 minutes when paying with <span style = "color: red;">GPay UPI</span></p>{% endcomment %}
                 <div id ="submit_div"><input id = "submit" type="submit" value="REGISTER"></div>
 		{% comment %}<br><br>
@@ -57,7 +54,11 @@
         </div>
         <script type="application/javascript">
             original_cost = parseInt(document.getElementById("id_cost").value);
-	    var event_n = "{{event_name}}"
+	    var event_n = "{{event_name}}";
+	    if("{{event_cost}}" == "0")
+	    {
+		document.getElementById("transaction_id").innerHTML += "<br>If you're registering for a free event, put N/A in this field";
+	    }
 	    var tech = event_n.slice(0,8);
             var busi = event_n.slice(0,17);
             if(tech == "TECHFEST")
@@ -65,20 +66,20 @@
             document.getElementById("solo_cost").textContent = "Cost - Rs {{ event_cost }} per event";
 		document.getElementById("techorbusi").textContent = "APPLY CODE:\n 'ONE' for participating in one event.\n'TWO' for two events";
 		document.getElementById("techorbusi").textContent += "\n'THREE' for three events.\n'FOUR' for four events\n'FIVE' for five events";
-		document.getElementById("techorbusi").textContent += "\n Enter the name(s) of the event(s) in the Link Field"; 
+		document.getElementById("techorbusi").textContent = "\n Enter the name(s) of the event(s) in the Link Field"; 
             }
             if(busi == "BUSINESS CONCLAVE")
             {
             document.getElementById("solo_cost").textContent = "Cost - Rs {{ event_cost }} per event";
  		document.getElementById("techorbusi").textContent = "APPLY CODE:\n 'ONE' for participating in one event.\n'TWO' for two events";
 		document.getElementById("techorbusi").textContent += "\n'THREE' for three events.\n'FOUR' for four events";
-		document.getElementById("techorbusi").textContent += " Enter the name(s) of the event(s) in the Link Field";
+		document.getElementById("techorbusi").textContent = " Enter the name(s) of the event(s) in the Link Field";
             }
 	    if(busi == "COMMERCE CONCLAVE")
 	    {
 	    document.getElementById("solo_cost").textContent = "Cost - Rs {{ event_cost }} per event";
 		document.getElementById("techorbusi").textContent = "APPLY CODE:\n 'ONE' for participating in one event.\n'TWO' for two events";
-		document.getElementById("techorbusi").textContent += "'THREE' for three events.\n Enter the name(s) of the event(s) in Link field";
+		document.getElementById("techorbusi").textContent = " Enter the name(s) of the event(s) in Link field";
   	    }
             function couponclicked()
             {
@@ -115,12 +116,12 @@
            {
                 if (c == '1')
                 {
-                    document.getElementById("submit").value = "PAY RS "+a;
+                   {% comment %} document.getElementById("submit").value = "PAY RS "+a;{% endcomment %}
                     document.getElementById("id_cost").value = a;
                 }
                 else
                 {
-                    document.getElementById("submit").value = "PAY RS "+b;
+                   {% comment %} document.getElementById("submit").value = "PAY RS "+b;{% endcomment %}
                     document.getElementById("id_cost").value = b;
                 }
            }
