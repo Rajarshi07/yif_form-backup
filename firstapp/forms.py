@@ -11,4 +11,4 @@ class eventsForm(forms.ModelForm):
         model = events
   
         # specify fields to be used 
-        fields = '__all__' 
+        fields = ["name","select_state","cluster","summary","picture","rules","cost","start_day","group_event"] 

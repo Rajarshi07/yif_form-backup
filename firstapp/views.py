@@ -222,26 +222,7 @@ def admin_login(request):
 
         if user:
             login(request, user)
-            if user.is_active and user.is_staff:
-                all_events = events.objects.all()
-                revenue = {}
-                total = [0,0]
-                for i in all_events:
-                    revenue[i.name] = []
-                    date_revenues = date_revenue.objects.filter(event_key=i.id)
-                    total_revenue = 0
-                    total_participants = 0
-                    for j in date_revenues:
-                        total_revenue += j.revenue
-                        total_participants += j.no_of_participants
-                    total[0] += total_revenue
-                    total[1] += total_participants
-                    revenue[i.name].append(total_revenue)
-                    revenue[i.name].append(total_participants)
-                return render(request, 'event_logs.html', {'details' : revenue, 'total_revenue' : total[0],
-                                                           'total_participants' : total[1]})
-            else:
-                return HttpResponseRedirect("/eventsedit/") 
+            return HttpResponseRedirect("/eventsedit/") 
         else:
             return HttpResponse('Wrong Login Credentials')
     else:
@@ -328,7 +309,7 @@ def detail_view(request, id):
 def update_view(request, id): 
 	context ={} 
 	obj = get_object_or_404(events, id = id) 
-	form = eventsForm(request.POST or None, instance = obj) 
+	form = eventsForm(request.POST or None,request.FILES or None, instance = obj) 
 	if form.is_valid(): 
 		form.save() 
 		return HttpResponseRedirect("/eventsedit/"+id) 
@@ -339,10 +320,10 @@ def update_view(request, id):
 @login_required
 def create_view(request): 
     context ={} 
-    form = eventsForm(request.POST or None) 
+    form = eventsForm(request.POST or None,request.FILES or None) 
     if form.is_valid(): 
         form.save() 
-        return redirect('/events/')
+        return HttpResponseRedirect('/eventsedit/')
     context['form']= form 
     return render(request, "evt_create_view.html", context)
 
