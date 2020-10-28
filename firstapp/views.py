@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import (get_object_or_404,render,HttpResponseRedirect) 
 from forms.form1 import form_registrations
 from .models import events, registration, date_revenue, society_leads, state_connection, coupons
+from .forms import eventsForm
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate,login, logout
@@ -181,7 +182,7 @@ def paytm_gateway(request):
             paid_registration.save()
             state = events.objects.get(name=paid_registration.event).select_state
             return render(request, 'paytm_status.html', {'result' : False,  'state':state})
-    
+
 
 def society_leads_login(request):
     if request.method == "POST":
@@ -220,6 +221,7 @@ def admin_login(request):
         user = authenticate(username = username,password = password)
 
         if user:
+            login(request, user)
             if user.is_active and user.is_staff:
                 all_events = events.objects.all()
                 revenue = {}
@@ -239,7 +241,7 @@ def admin_login(request):
                 return render(request, 'event_logs.html', {'details' : revenue, 'total_revenue' : total[0],
                                                            'total_participants' : total[1]})
             else:
-                return HttpResponse('Wrong Login Credentials')
+                return HttpResponseRedirect("/eventsedit/") 
         else:
             return HttpResponse('Wrong Login Credentials')
     else:
@@ -296,3 +298,58 @@ def send_email(request, event_name):
         contents="Test successful"
     )
     return HttpResponse("Test successful")
+
+
+
+
+def event_management_login(request):
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(username = username,password = password)
+        if user is not None:
+            login(request, user)
+            return render(request, 'event_edit.html')
+        else:
+            return HttpResponse('Wrong Login Credentials')
+    else:
+        return render(request, 'evt_management_login.html')
+
+
+# after updating it will redirect to event detail_View 
+@login_required
+def detail_view(request, id): 
+	context ={} 
+	context["data"] = events.objects.get(id = id) 
+	return render(request, "evt_detail_view.html", context) 
+
+# update view for events form
+@login_required
+def update_view(request, id): 
+	context ={} 
+	obj = get_object_or_404(events, id = id) 
+	form = eventsForm(request.POST or None, instance = obj) 
+	if form.is_valid(): 
+		form.save() 
+		return HttpResponseRedirect("/eventsedit/"+id) 
+	context["form"] = form
+	return render(request, "evt_update_view.html", context) 
+
+# create view for event form
+@login_required
+def create_view(request): 
+    context ={} 
+    form = eventsForm(request.POST or None) 
+    if form.is_valid(): 
+        form.save() 
+        return redirect('/events/')
+    context['form']= form 
+    return render(request, "evt_create_view.html", context)
+
+from django.views.generic.list import ListView 
+class EventsList(ListView):
+	template_name = 'events_list.html'
+	model = events
+	context_object_name = 'object_list'
+
+ 

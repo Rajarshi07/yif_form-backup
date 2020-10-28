@@ -18,6 +18,7 @@ class events(models.Model):
     summary = models.TextField(max_length= 500)
     picture = models.ImageField(upload_to = "event_posters")
     rules = models.TextField(max_length=1500)
+    payment_script = models.TextField(max_length=1000, default="")
     cost = models.IntegerField()
     cost2 = models.IntegerField(default = 0,blank = True)
     total_revenue = models.IntegerField(default = 0)

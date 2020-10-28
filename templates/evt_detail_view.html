@@ -1,0 +1,43 @@
+{% extends 'header_file.html' %}
+{% load static %}
+<html>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+        {% block extra_links %}
+        <title> Events </title>
+        <link href = "{% static 'event_details.css' %}" rel = "stylesheet" type= "text/css">
+        {% endblock %}
+    </head>
+    <body>
+        {% block heading %}
+        Event Details
+        {% endblock %}
+        {% block rest_container%}
+        <div id = "rest_container">
+            <button onclick="window.location=window.location.pathname+'update'">Edit Event</button>
+  <ul>
+    <div class="main"> 
+        <!-- Display attributes of instance -->
+        Name: {{ data.name}}<br>
+        <!-- {{ data.states}}<br> -->
+        <!-- {{ data.cluster_choices}}<br> -->
+        State: {{ data.select_state}}<br>
+        Cluster: {{ data.cluster}}<br>
+        Summary: {{ data.summary}}<br>
+        Picture: {{ data.picture}}<br>
+        Rules: {{ data.rules |linebreaks}}<br>
+        Payment Script: {{ data.payment_script}} {{ data.payment_script | safe}}<br>
+        Cost: {{ data.cost}}<br>
+        Cost2: {{ data.cost2}}<br>
+        Total Revenue: {{ data.total_revenue}}<br>
+        Participants: {{ data.participants}}<br>
+        Start Day: {{ data.start_day}}<br>
+        Email: {{ data.email}}<br>
+        Password: {{ data.password}}<br>
+        Group Event: {{ data.group_event}}<br>
+    </div> 
+  </ul>
+        </div>
+        {% endblock %}
+    </body>
+</html>

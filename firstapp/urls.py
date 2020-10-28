@@ -16,7 +16,13 @@ urlpatterns = [
     path('export_user_xls/', views.export_users_xls, name = "download_xls"),
     path('paytm_gateway/', views.paytm_gateway, name = "paytm_gateway"),
     path('email_test/', views.email_test, name = 'email_test'),
-    path('email_test/<str:event_name>', views.send_email, name = "send email")
+    path('email_test/<str:event_name>', views.send_email, name = "send email"),
+    path('eventsedit/<id>/', views.detail_view ), 
+    path('eventsedit/<id>/update', views.update_view ),
+    path('eventscreate/', views.create_view),
+    path('eventsedit/',views.EventsList.as_view()),
+    path('accounts/login/',views.admin_login)    
 ]
 
 urlpatterns = urlpatterns + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+ 

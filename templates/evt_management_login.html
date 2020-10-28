@@ -1,0 +1,69 @@
+{% extends 'header_file.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block extra_links %}
+    <title>Admin Login</title>
+    <style>
+        #rest_container
+        {
+            width: 20%;
+            margin: 0 auto;
+        }
+        #rest_container h1
+        {
+            text-align: center;
+        }
+        input
+        {
+            width: 100%;
+        }
+        #submit_div
+        {
+            width: 100%;
+            text-align: center;
+        }
+        #submit
+        {
+            width: 5rem;
+        }
+        @media screen and (max-width: 800px)
+        {
+            html
+            {
+                font-size: 75%;
+            }
+            #rest_container
+            {
+                width: 70%;
+            }
+            header p
+            {
+                font-size: 1.5rem;
+                margin-top: 1.5rem;
+            }
+        }
+    </style>
+    {% endblock %}
+</head>
+<body>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block heading %}
+    EVENT MANAGEMENT LOGIN
+    {% endblock %}
+    {% block rest_container %}
+    <div id = "rest_container">
+    <form method = "POST">
+        {% csrf_token %}
+        <label for="username" >Username</label><br>
+        <input name="username" id="username" type="text"><br><br>
+        <label for="password" >Password</label><br>
+        <input name = "password"  id = "password" type = "password"><br><br>
+        <div id = "submit_div"><input id = "submit" type = "submit" value= "Login"></div>
+    </form>
+    </div>
+    {% endblock %}
+</body>
+</html>

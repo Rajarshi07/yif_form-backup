@@ -1,0 +1,36 @@
+{% extends 'header_file.html' %}
+{% load static %}
+<html>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+        {% block extra_links %}
+        <title> Events </title>
+        <link href = "{% static 'event_details.css' %}" rel = "stylesheet" type= "text/css">
+        {% endblock %}
+    </head>
+    <body>
+        {% block heading %}
+        Events List
+        {% endblock %}
+        {% block rest_container%}
+        <div id = "rest_container">
+  <ul>
+    <div class="main"> 
+        <button onclick="window.location='/eventscreate/'">Add event</button>
+        <ul> 
+            <!-- Iterate over object_list -->
+            {% for evt in object_list %} 
+            <!-- Display Objects -->
+            <a href="/eventsedit/{{evt.id}}"><li>{{ evt.name }}</li></a>
+            <hr/> 
+            <!-- If objet_list is empty  -->
+            {% empty %} 
+            <li>No objects yet.</li> 
+            {% endfor %} 
+        </ul> 
+    </div> 
+  </ul>
+        </div>
+        {% endblock %}
+    </body>
+</html>
