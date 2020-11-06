@@ -2,12 +2,6 @@
   font-family: myFourthFont;
   src: url("medium.otf");
 }
-#state_heading
-{
-    font-family: mySecondFont;
-    text-align: center;
-    font-size: 2rem;
-}
 #state_section
 {
     font-family: mySecondFont;
@@ -65,7 +59,6 @@
     header p
     {
         font-size: 1.5rem;
-        margin-top: 1.5rem;
     }
     #state_section
     {
@@ -78,5 +71,19 @@
     .state_card
     {
         height: 13rem;
+    }
+}
+@media screen and (max-width: 400px)
+{
+    .states
+    {
+        margin: 0 1.2rem 2rem 1.2rem;
+    }
+}
+@media screen and (max-width: 370px)
+{
+    .states
+    {
+        margin: 2rem .5rem;
     }
 }
