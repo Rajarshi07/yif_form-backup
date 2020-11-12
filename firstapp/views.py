@@ -1,4 +1,4 @@
-from django.shortcuts import (get_object_or_404,render,HttpResponseRedirect) 
+from django.shortcuts import (get_object_or_404,render,HttpResponseRedirect)
 from forms.form1 import form_registrations
 from .models import events, registration, date_revenue, society_leads, state_connection, coupons
 from .forms import eventsForm
@@ -222,7 +222,7 @@ def admin_login(request):
 
         if user:
             login(request, user)
-            return HttpResponseRedirect("/eventsedit/") 
+            return HttpResponseRedirect("/eventsedit/")
         else:
             return HttpResponse('Wrong Login Credentials')
     else:
@@ -283,54 +283,66 @@ def send_email(request, event_name):
 
 
 
-def event_management_login(request):
-    if request.method == "POST":
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(username = username,password = password)
-        if user is not None:
-            login(request, user)
-            return render(request, 'event_edit.html')
-        else:
-            return HttpResponse('Wrong Login Credentials')
-    else:
-        return render(request, 'evt_management_login.html')
+# def event_management_login(request):
+#     if request.method == "POST":
+#         username = request.POST.get('username')
+#         password = request.POST.get('password')
+#         user = authenticate(username = username,password = password)
+#         if user is not None:
+#             login(request, user)
+#             return render(request, 'event_edit.html')
+#         else:
+#             return HttpResponse('Wrong Login Credentials')
+#     else:
+#         return render(request, 'evt_management_login.html')
 
 
-# after updating it will redirect to event detail_View 
+# after updating it will redirect to event detail_View
 @login_required
-def detail_view(request, id): 
-	context ={} 
-	context["data"] = events.objects.get(id = id) 
-	return render(request, "evt_detail_view.html", context) 
+def detail_view(request, id):
+    obj = events.objects.get(id = id)
+    if obj.eventadmin == request.user:
+        context ={}
+        context["data"] = obj
+        return render(request, "evt_detail_view.html", context)
+    else:
+        return HttpResponse("Unauthorized")
 
 # update view for events form
 @login_required
-def update_view(request, id): 
-	context ={} 
-	obj = get_object_or_404(events, id = id) 
-	form = eventsForm(request.POST or None,request.FILES or None, instance = obj) 
-	if form.is_valid(): 
-		form.save() 
-		return HttpResponseRedirect("/eventsedit/"+id) 
-	context["form"] = form
-	return render(request, "evt_update_view.html", context) 
+def update_view(request, id):
+    user = request.user
+    print(user.username)
+    context ={}
+    obj = get_object_or_404(events, id = id)
+    if obj.eventadmin == user:
+        form = eventsForm(request.POST or None,request.FILES or None, instance = obj)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect("/eventsedit/"+id)
+        context["form"] = form
+        return render(request, "evt_update_view.html", context)
+    else:
+        return HttpResponse("Unauthorized")
 
 # create view for event form
 @login_required
-def create_view(request): 
-    context ={} 
-    form = eventsForm(request.POST or None,request.FILES or None) 
-    if form.is_valid(): 
-        form.save() 
-        return HttpResponseRedirect('/eventsedit/')
-    context['form']= form 
+def create_view(request):
+    context ={}
+    user = request.user
+    form = eventsForm(request.POST or None,request.FILES or None)
+    if form.is_valid():
+        instance = form.save()
+        instance.eventadmin = user
+        instance.save()
+        return HttpResponseRedirect('/eventsedit/'+str(instance.id))
+    context['form']= form
     return render(request, "evt_create_view.html", context)
 
-from django.views.generic.list import ListView 
+from django.views.generic.list import ListView
 class EventsList(ListView):
 	template_name = 'events_list.html'
 	model = events
 	context_object_name = 'object_list'
 
- 
+

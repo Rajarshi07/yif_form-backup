@@ -15,21 +15,28 @@
         {% block rest_container%}
         <div id = "rest_container">
   <ul>
-    <div class="main"> 
-        <button onclick="window.location='/eventscreate/'">Add event</button>
-        <ul> 
+    <div class="main">
+        <ul>
             <!-- Iterate over object_list -->
-            {% for evt in object_list %} 
+            {% for evt in object_list %}
             <!-- Display Objects -->
-            <a href="/eventsedit/{{evt.id}}"><li>{{ evt.name }}</li></a>
-            <hr/> 
+            {% if evt.eventadmin == request.user %}
+            <a href="/eventsedit/{{evt.id}}"><li>{{ evt.name }} | </li></a>
+            <hr/>
+            {% endif %}
             <!-- If objet_list is empty  -->
-            {% empty %} 
-            <li>No objects yet.</li> 
-            {% endfor %} 
-        </ul> 
-    </div> 
+            {% empty %}
+            <li>No Events registered for this User Yet.</li>
+            {% endfor %}
+        </ul>
+    </div>
   </ul>
+  {% if request.user.is_authenticated %}
+  <button onclick="window.location='/eventscreate/'">Add event</button>
+  <h5>Logged in as: {{request.user.username}} &nbsp; <a href="/logout/">Logout</a></h5>
+  {%else%}
+  <h5>Login to see your events: <a href="/special_admin_login/">Login</a></h5>
+  {% endif %}
         </div>
         {% endblock %}
     </body>

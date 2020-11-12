@@ -16,9 +16,10 @@
         <div id = "rest_container">
             <button onclick="window.location=window.location.pathname+'update'">Edit Event</button>
   <ul>
-    <div class="main"> 
+    <div class="main">
         <!-- Display attributes of instance -->
         Name: {{ data.name}}<br>
+        EventAdmin: {{data.eventadmin}}<br>
         <!-- {{ data.states}}<br> -->
         <!-- {{ data.cluster_choices}}<br> -->
         State: {{ data.select_state}}<br>
@@ -31,8 +32,7 @@
         Start Day: {{ data.start_day}}<br>
         Group Event: {{ data.group_event}}<br>
         Reg_Data: <a href="/media/{{data.registration_data}}">Download</a>{{data.registration_data}}
-
-    </div> 
+    </div>
   </ul>
         </div>
         {% endblock %}

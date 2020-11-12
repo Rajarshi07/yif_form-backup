@@ -3,7 +3,7 @@ from django.db import models
 from datetime import datetime, timedelta, timezone
 from django.contrib.auth.models import User
 import pytz
-
+import django.utils.timezone
 # Create your models here.
 
 class events(models.Model):
@@ -24,11 +24,12 @@ class events(models.Model):
     cost2 = models.IntegerField(default = 0,blank = True)
     total_revenue = models.IntegerField(default = 0)
     participants = models.IntegerField(default = 0)
-    start_day = models.DateField(default = datetime.today())
+    start_day = models.DateField(default = django.utils.timezone.now)
     email = models.EmailField(default = 'prodigygamer143@gmail.com',max_length=50)
     password = models.CharField(default = '8017586761', max_length=100)
     group_event = models.BooleanField(default = False)
     registration_data = models.FileField(upload_to='reg_data',default="")
+    eventadmin = models.ForeignKey(User,on_delete=models.SET_NULL,null=True,blank=True)
     class Meta:
         verbose_name_plural = "Events"
     def __str__(self):
@@ -47,8 +48,8 @@ class registration(models.Model):
     paid = models.BooleanField(default = False)
     transaction_id = models.CharField(max_length=200, blank = True)
     participant_id = models.CharField(max_length= 10, blank = True)
-    timestamp = models.DateTimeField(blank = True, default = datetime.now(pytz.timezone('Asia/Kolkata')))
-    day_registered = models.DateField(blank = True, default = datetime.today())
+    timestamp = models.DateTimeField(blank = True, default = django.utils.timezone.now)
+    day_registered = models.DateField(blank = True, default = django.utils.timezone.now)
     class Meta:
         verbose_name_plural = "Registrations"
     def __str__(self):
